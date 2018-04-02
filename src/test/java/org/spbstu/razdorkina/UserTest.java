@@ -19,7 +19,7 @@ class UserTest {
     }
 
     /**
-     * Checking method deleteNumber()
+     * Checking method deleteNumber() and checkNumber()
      */
     @Test
     void deleteNumber() {
