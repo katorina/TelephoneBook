@@ -1,4 +1,4 @@
-package main.java.org.spbstu.razdorkina;
+package org.spbstu.razdorkina;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -22,14 +22,14 @@ public class User {
      */
     public User(String nameIn, String numberIn) {
         name = nameIn;
-        numbers.add(transformNumber(numberIn));
+        if (checkNumber(numberIn)) numbers.add(numberIn);
     }
 
     public String getName() {
         return name;
     }
 
-    public ArrayList<String> getNumbers() {
+    ArrayList<String> getNumbers() {
         return numbers;
     }
 
@@ -39,29 +39,9 @@ public class User {
      * @param number input number
      * @return output number
      */
-    private String transformNumber(String number) {
+    private boolean checkNumber(String number) {
         final String checkNumber = number.replaceAll("[-]*", "");
-        if (!checkNumber.matches("[*+]?\\d+?#?")) return "";
-        int plus = 0;
-        int asterisk = 0;
-        int lattice = 0;
-        for (int i = 0; i < checkNumber.length(); i++) {
-            switch (checkNumber.charAt(i)) {
-                case '+':
-                    plus++;
-                    break;
-                case '*':
-                    asterisk++;
-                    break;
-                case '#':
-                    lattice++;
-                    break;
-            }
-        }
-        if (plus == 1 && checkNumber.charAt(0) != '+' || plus > 1) return "";
-        if (asterisk == 1 && checkNumber.charAt(0) != '*' || asterisk > 1) return "";
-        if (lattice == 1 && checkNumber.charAt(checkNumber.length() - 1) != '#' || lattice > 1) return "";
-        return number;
+        return checkNumber.matches("[#*+]?\\d+?#?");
     }
 
     /**
@@ -69,14 +49,14 @@ public class User {
      *
      * @param newNumber new number
      */
-    public boolean addNumber(String newNumber) {
-        if (transformNumber(newNumber).isEmpty())
+    boolean addNumber(String newNumber) {
+        if (!checkNumber(newNumber))
             return false;
         for (String number : numbers) {
             if (newNumber.equals(number))
                 return false;
         }
-        numbers.add(transformNumber(newNumber));
+        numbers.add(newNumber);
         return true;
     }
 
@@ -84,7 +64,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        final User user = (User) o;
         return Objects.equals(name, user.name) &&
                 Objects.equals(numbers, user.numbers);
     }
@@ -96,10 +76,10 @@ public class User {
 
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
+        final StringBuilder str = new StringBuilder();
         for (String s :
                 numbers) {
-            str.append(s).append(" ");
+            str.append("'").append(s).append("' ");
         }
         str.deleteCharAt(str.length() - 1);
         return "User{" +
@@ -113,9 +93,8 @@ public class User {
      *
      * @param delNumber number for deleting
      */
-    public boolean deleteNumber(String delNumber) {
-        delNumber = transformNumber(delNumber);
-        if (delNumber.equals(""))
+    boolean deleteNumber(String delNumber) {
+        if (!checkNumber(delNumber))
             return false;
         if (numbers.size() == 1 && delNumber.equals(numbers.get(0))) {
             numbers.remove(0);

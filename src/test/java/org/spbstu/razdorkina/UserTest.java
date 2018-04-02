@@ -1,6 +1,5 @@
-package test.java.org.spbstu.razdorkina;
+package org.spbstu.razdorkina;
 
-import main.java.org.spbstu.razdorkina.TelephoneBook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,26 +7,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
 
-    private TelephoneBook book = new TelephoneBook();
+    private User user1;
+    private User user2;
 
     @BeforeEach
     void setUp() {
-        book = new TelephoneBook();
-        book.addUser("Ivan", "123");
-        book.addUser("Pavel", "456");
-        book.addUser("Masha", "789");
-    }
-
-    /**
-     * Checking method addNumber()
-     */
-    @Test
-    void addNumber() {
-        assertTrue(book.searchByName("Ivan").addNumber("987654"));
-        assertEquals("123", book.searchByName("Ivan").getNumbers().get(0));
-        assertEquals("987654", book.searchByName("Ivan").getNumbers().get(1));
-        assertFalse(book.searchByName("Ivan").addNumber("15+48941*"));
-        assertFalse(book.searchByName("Ivan").addNumber("987654"));
+        user1 = new User ("Ivan", "123");
+        user2 = new User ("Pavel", "456");
+        user1.addNumber("987654");
+        user2.addNumber("1464847");
     }
 
     /**
@@ -35,22 +23,23 @@ class UserTest {
      */
     @Test
     void deleteNumber() {
-        book.searchByName("Ivan").addNumber("987654");
-        book.searchByName("Ivan").deleteNumber("123");
-        assertNull(book.searchByNumber("123"));
-        assertEquals("987654", book.searchByName("Ivan").getNumbers().get(0));
-        assertTrue(book.searchByName("Ivan").deleteNumber("987654"));
-        assertFalse(book.searchByName("Ivan").deleteNumber("2151+189"));
+        user1.addNumber("987654");
+        user1.deleteNumber("123");
+        user2.deleteNumber("456");
+        assertEquals("987654", user1.getNumbers().get(0));
+        assertTrue(user1.deleteNumber("987654"));
+        assertFalse(user1.deleteNumber("2151+189"));
     }
 
     /**
-     * Checking method transformNumber() for numbers with * and #
+     * Checking method checkNumber()
      */
     @Test
-    void transformNumber1() {
-        book.addUser("Balance", "*100#");
-        assertEquals("*100#", book.searchByName("Balance").getNumbers().get(0));
-        assertEquals("Balance", book.searchByNumber("*100#").getName());
+    void checkNumber() {
+        User user4 = new User("Balance", "*100#");
+        assertEquals("*100#", user4.getNumbers().get(0));
+        assertFalse(user1.addNumber("15+48941*"));
+        assertFalse(user1.addNumber("987654"));
     }
 }
 

@@ -1,6 +1,7 @@
-package main.java.org.spbstu.razdorkina;
+package org.spbstu.razdorkina;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * TelephoneBook
@@ -26,7 +27,7 @@ public class TelephoneBook {
      * @param numberIn number for search
      * @return User object
      */
-    public User searchByNumber(String numberIn) {
+    User searchByNumber(String numberIn) {
         for (User user : users) {
             for (String hNumber : user.getNumbers()) {
                 if (hNumber.equals(numberIn))
@@ -42,7 +43,7 @@ public class TelephoneBook {
      * @param nameIn name for search
      * @return User object
      */
-    public User searchByName(String nameIn) {
+    User searchByName(String nameIn) {
         for (User user : users) {
             if (user.getName().equals(nameIn))
                 return user;
@@ -56,9 +57,34 @@ public class TelephoneBook {
      * @param nameIn   name of contact
      * @param numberIn number of contact
      */
-    public void addUser(String nameIn, String numberIn) {
-        User local = new User(nameIn, numberIn);
+    void addUser(String nameIn, String numberIn) {
+        final User local = new User(nameIn, numberIn);
         users.add(local);
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder str = new StringBuilder();
+        for (User user: users
+             ) {
+            str.append(user.toString()).append(" ");
+        }
+        return "TelephoneBook{" +
+                "users=" + str +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final TelephoneBook that = (TelephoneBook) o;
+        return Objects.equals(users, that.users);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(users);
     }
 
     /**
@@ -66,7 +92,7 @@ public class TelephoneBook {
      *
      * @param user contact for deleting
      */
-    public boolean deleteUser(User user) {
+    boolean deleteUser(User user) {
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).equals(user)) {
                 users.remove(i);

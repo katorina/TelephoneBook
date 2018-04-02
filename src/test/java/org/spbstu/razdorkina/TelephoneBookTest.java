@@ -1,6 +1,5 @@
-package test.java.org.spbstu.razdorkina;
+package org.spbstu.razdorkina;
 
-import main.java.org.spbstu.razdorkina.TelephoneBook;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -41,6 +40,8 @@ class TelephoneBookTest {
     void searchByNumber_and_GetName() {
         assertEquals("Ivan", book.searchByNumber("123").getName());
         assertNull(book.searchByNumber("1234"));
+        book.searchByName("Ivan").addNumber("1488");
+        System.out.print(book.toString());
     }
 
     /**
