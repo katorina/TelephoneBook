@@ -12,7 +12,7 @@ public class TelephoneBook {
     /**
      * Array of User class objects
      */
-    private ArrayList<User> users;
+    final private ArrayList<User> users;
 
     /**
      * Array of User class objects is creating in constructor
@@ -65,8 +65,8 @@ public class TelephoneBook {
     @Override
     public String toString() {
         final StringBuilder str = new StringBuilder();
-        for (User user: users
-             ) {
+        for (User user : users
+                ) {
             str.append(user.toString()).append(" ");
         }
         return "TelephoneBook{" +

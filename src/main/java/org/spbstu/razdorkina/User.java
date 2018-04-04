@@ -12,7 +12,7 @@ public class User {
     /**
      * Contact number
      */
-    private ArrayList<String> numbers = new ArrayList<>();
+    final private ArrayList<String> numbers = new ArrayList<>();
 
     /**
      * Creating a contact
@@ -25,11 +25,11 @@ public class User {
         if (checkNumber(numberIn)) numbers.add(numberIn);
     }
 
-    public String getName() {
+    final public String getName() {
         return name;
     }
 
-    ArrayList<String> getNumbers() {
+    final ArrayList<String> getNumbers() {
         return numbers;
     }
 

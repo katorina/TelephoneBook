@@ -20,8 +20,9 @@ class TelephoneBookTest {
     void setUp() {
         book = new TelephoneBook();
         book.addUser("Ivan", "123");
-        book.addUser("Pavel", "456");
-        book.addUser("Masha", "789");
+        book.addUser("Alotof Numbers", "456");
+        book.searchByName("Alotof Numbers").addNumber("+7958220");
+        book.searchByName("Alotof Numbers").addNumber("8-952-321-45");
     }
 
     /**
@@ -29,7 +30,7 @@ class TelephoneBookTest {
      */
     @Test
     void searchByName_and_GetNumbers() {
-        assertEquals("456", book.searchByName("Pavel").getNumbers().get(0));
+        assertEquals("456", book.searchByName("Alotof Numbers").getNumbers().get(0));
         assertNull(book.searchByName("Pavel1"));
     }
 
@@ -38,22 +39,8 @@ class TelephoneBookTest {
      */
     @Test
     void searchByNumber_and_GetName() {
-        assertEquals("Ivan", book.searchByNumber("123").getName());
+        assertEquals("Alotof Numbers", book.searchByNumber("8-952-321-45").getName());
         assertNull(book.searchByNumber("1234"));
-        book.searchByName("Ivan").addNumber("1488");
-        System.out.print(book.toString());
-    }
-
-    /**
-     * Checking method addUser()
-     */
-    @Test
-    void addUser() {
-        assertNull(book.searchByName("Pasha"));
-        assertNull(book.searchByNumber("1111111111"));
-        book.addUser("Pasha", "1111111111");
-        assertEquals("1111111111", book.searchByName("Pasha").getNumbers().get(0));
-        assertEquals("Pasha", book.searchByNumber("1111111111").getName());
     }
 
     /**
@@ -61,9 +48,9 @@ class TelephoneBookTest {
      */
     @Test
     void deleteUser() {
-        assertEquals("Ivan", book.searchByNumber("123").getName());
-        assertTrue(book.deleteUser(book.searchByNumber("123")));
-        assertNull(book.searchByNumber("123"));
+        assertTrue(book.deleteUser(book.searchByNumber("+7958220")));
+        assertNull(book.searchByNumber("456"));
+        assertFalse(book.deleteUser(book.searchByName("Katya")));
     }
 
 }
