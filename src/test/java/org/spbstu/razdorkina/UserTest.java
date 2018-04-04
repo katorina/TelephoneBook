@@ -12,7 +12,6 @@ class UserTest {
     @BeforeEach
     void setUp() {
         user1 = new User("Ivan", "123");
-        user1.addNumber("987654");
     }
 
     /**
@@ -20,6 +19,7 @@ class UserTest {
      */
     @Test
     void deleteNumber() {
+        assertTrue(user1.addNumber("987654"));
         user1.deleteNumber("123");
         assertEquals("987654", user1.getNumbers().get(0));
         assertTrue(user1.deleteNumber("987654"));

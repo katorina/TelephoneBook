@@ -41,7 +41,7 @@ public class User {
      */
     private boolean checkNumber(String number) {
         final String checkNumber = number.replaceAll("[-]*", "");
-        return checkNumber.matches("[#*+]?\\d+?#?");
+        return checkNumber.matches("[*|+]?\\d+#?\\d+");
     }
 
     /**
@@ -62,11 +62,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
+        if (this == o) return false;
         if (o == null || getClass() != o.getClass()) return false;
         final User user = (User) o;
-        return Objects.equals(name, user.name) &&
-                Objects.equals(numbers, user.numbers);
+        return Objects.equals(user.hashCode(), this.hashCode());
     }
 
     @Override
@@ -98,7 +97,6 @@ public class User {
             return false;
         if (numbers.size() == 1 && delNumber.equals(numbers.get(0))) {
             numbers.remove(0);
-            numbers.add("");
             return true;
         }
         for (int i = 0; i < numbers.size(); i++) {

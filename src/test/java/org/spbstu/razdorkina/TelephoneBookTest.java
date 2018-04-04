@@ -17,7 +17,7 @@ class TelephoneBookTest {
         book = new TelephoneBook();
         book.addUser("Ivan", "123");
         book.addUser("Alotof Numbers", "456");
-        book.searchByName("Alotof Numbers").addNumber("+7958220");
+        book.searchByName("Alotof Numbers").addNumber("+7958220#220");
         book.searchByName("Alotof Numbers").addNumber("8-952-321-45");
     }
 
@@ -44,7 +44,7 @@ class TelephoneBookTest {
      */
     @Test
     void deleteUser() {
-        assertTrue(book.deleteUser(book.searchByNumber("+7958220")));
+        assertTrue(book.deleteUser(book.searchByNumber("+7958220#220")));
         assertNull(book.searchByNumber("456"));
         assertFalse(book.deleteUser(book.searchByName("Katya")));
     }
