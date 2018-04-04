@@ -10,10 +10,7 @@ class TelephoneBookTest {
     private TelephoneBook book;
 
     /**
-     * Creating telephone book and adding of 3 base contacts
-     * "Ivan", "123"
-     * "Pavel", "456"
-     * "Masha", "789"
+     * Creating telephone book and adding of base contacts
      */
 
     @BeforeEach
