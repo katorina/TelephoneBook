@@ -41,7 +41,7 @@ public class User {
      */
     private boolean checkNumber(String number) {
         final String checkNumber = number.replaceAll("[-]*", "");
-        return checkNumber.matches("[*|+]?\\d+#?\\d+");
+        return checkNumber.matches("[*|+]?\d+#?[\d+]?");
     }
 
     /**
