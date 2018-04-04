@@ -12,7 +12,6 @@ class TelephoneBookTest {
     /**
      * Creating telephone book and adding of base contacts
      */
-
     @BeforeEach
     void setUp() {
         book = new TelephoneBook();
