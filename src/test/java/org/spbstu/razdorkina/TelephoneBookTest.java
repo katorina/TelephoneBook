@@ -3,6 +3,8 @@ package org.spbstu.razdorkina;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TelephoneBookTest {
@@ -15,9 +17,8 @@ class TelephoneBookTest {
     @BeforeEach
     void setUp() {
         book = new TelephoneBook();
-        book.addUser("Ivan", "123");
         book.addUser("Alotof Numbers", "456");
-        book.searchByName("Alotof Numbers").addNumber("+7958220#220");
+        book.searchByName("Alotof Numbers").addNumber("+79582204220");
         book.searchByName("Alotof Numbers").addNumber("8-952-321-45");
     }
 
@@ -26,8 +27,13 @@ class TelephoneBookTest {
      */
     @Test
     void searchByName_and_GetNumbers() {
-        assertEquals("456", book.searchByName("Alotof Numbers").getNumbers().get(0));
-        assertNull(book.searchByName("Pavel1"));
+        book.addUser("name", "898727");
+        book.addUser("name", "565919");
+        final User found = book.searchByName("name");
+        ArrayList<String> answer = new ArrayList<>();
+        answer.add("898727");
+        answer.add("565919");
+        assertEquals(answer, found.getNumbers());
     }
 
     /**
@@ -44,9 +50,9 @@ class TelephoneBookTest {
      */
     @Test
     void deleteUser() {
-        assertTrue(book.deleteUser(book.searchByNumber("+7958220#220")));
+        assertTrue(book.deleteUser(book.searchByNumber("+79582204220").getName()));
         assertNull(book.searchByNumber("456"));
-        assertFalse(book.deleteUser(book.searchByName("Katya")));
+        assertFalse(book.deleteUser("Katya"));
     }
 
 }

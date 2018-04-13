@@ -41,7 +41,7 @@ public class User {
      */
     private boolean checkNumber(String number) {
         final String checkNumber = number.replaceAll("[-]*", "");
-        return checkNumber.matches("[*|+]?\d+#?[\d+]?");
+        return checkNumber.matches("[*|+]?\\d+#?[\\d+]?");
     }
 
     /**
@@ -95,10 +95,6 @@ public class User {
     boolean deleteNumber(String delNumber) {
         if (!checkNumber(delNumber))
             return false;
-        if (numbers.size() == 1 && delNumber.equals(numbers.get(0))) {
-            numbers.remove(0);
-            return true;
-        }
         for (int i = 0; i < numbers.size(); i++) {
             if (numbers.get(i).equals(delNumber)) {
                 numbers.remove(i);

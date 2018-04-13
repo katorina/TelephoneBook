@@ -57,9 +57,23 @@ public class TelephoneBook {
      * @param nameIn   name of contact
      * @param numberIn number of contact
      */
-    void addUser(String nameIn, String numberIn) {
-        final User local = new User(nameIn, numberIn);
-        users.add(local);
+    boolean addUser(String nameIn, String numberIn) {
+        for (User user :
+                users) {
+            for (String number :
+                    user.getNumbers()) {
+                if (number.equals(numberIn)) {
+                    return false;
+                }
+            }
+        }
+        User help = searchByName(nameIn);
+        if (help != null) {
+            help.addNumber(numberIn);
+        } else {
+            users.add(new User(nameIn, numberIn));
+        }
+        return true;
     }
 
     @Override
@@ -90,13 +104,16 @@ public class TelephoneBook {
     /**
      * Deleting of a contact from users array
      *
-     * @param user contact for deleting
+     * @param name contact for deleting
      */
-    boolean deleteUser(User user) {
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).equals(user)) {
-                users.remove(i);
-                return true;
+    boolean deleteUser(String name) {
+        User user = searchByName(name);
+        if (user != null) {
+            for (int i = 0; i < users.size(); i++) {
+                if (name.equals(users.get(i).getName())) {
+                    users.remove(i);
+                    return true;
+                }
             }
         }
         return false;
