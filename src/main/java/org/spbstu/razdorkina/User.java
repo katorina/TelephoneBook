@@ -30,7 +30,7 @@ public class User {
     }
 
     final ArrayList<String> getNumbers() {
-        return numbers;
+        return new ArrayList<>(numbers);
     }
 
     /**
